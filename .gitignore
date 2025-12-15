@@ -1,0 +1,14 @@
+# Entornos virtuales
+crop_yield_env/
+venv/
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Sistema
+.DS_Store
+
+# Datos temporales
+data/raw/*.csv
