@@ -433,7 +433,7 @@ with tab_experiments:
             df_r2_top = (
                 df_exp
                 .sort_values("r2", ascending=False)
-                .head(15)
+                .head(30)
             )
 
             fig_r2 = px.bar(
@@ -441,12 +441,12 @@ with tab_experiments:
                 x="r2",
                 y="modelo_index",
                 orientation="h",
-                title="R² – TOP 15 experimentos"
+                title="R² – TOP 30 experimentos"
             )
 
             fig_r2.update_xaxes(
                 range=expand_range(df_r2_top["r2"], pct=0.1),
-                tickformat=".4f"
+                tickformat=".6"
             )
             
             st.plotly_chart(fig_r2, use_container_width=True)
@@ -457,7 +457,7 @@ with tab_experiments:
             df_mae_top = (
                 df_exp
                 .sort_values("mae", ascending=True)
-                .head(15)
+                .head(30)
             )
 
             fig_mae = px.bar(
@@ -465,12 +465,18 @@ with tab_experiments:
                 x="mae",
                 y="modelo_index",
                 orientation="h",
-                title="MAE – TOP 15 experimentos"
+                title="MAE – TOP 30 experimentos"
+            )
+
+            fig_mae.update_traces(
+                marker_color="green",
+                marker_line_width=0.5,
+                marker_line_color="black"
             )
 
             fig_mae.update_xaxes(
                 range=expand_range(df_mae_top["mae"], pct=0.1),
-                tickformat=".4f"
+                tickformat=".6f"
             )
 
             st.plotly_chart(fig_mae, use_container_width=True)
@@ -481,7 +487,7 @@ with tab_experiments:
             df_rmse_top = (
                 df_exp
                 .sort_values("rmse", ascending=True)
-                .head(15)
+                .head(30)
             )
 
             fig_rmse = px.bar(
@@ -489,12 +495,18 @@ with tab_experiments:
                 x="rmse",
                 y="modelo_index",
                 orientation="h",
-                title="RMSE – TOP 15 experimentos"
+                title="RMSE – TOP 30 experimentos"
+            )
+
+            fig_rmse.update_traces(
+                marker_color="orange",
+                marker_line_width=0.5,
+                marker_line_color="black"
             )
 
             fig_rmse.update_xaxes(
                 range=expand_range(df_rmse_top["rmse"], pct=0.1),
-                tickformat=".4f"
+                tickformat=".6f"
             )
 
             st.plotly_chart(fig_rmse, use_container_width=True)
