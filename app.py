@@ -421,13 +421,9 @@ with tab_experiments:
             # =====================================================
             st.subheader("📈 Comparativa global de métricas")
 
-            # Rangos dinámicos para mejorar visualización
-            r2_min, r2_max = df_exp["r2"].min(), df_exp["r2"].max()
-            mae_min, mae_max = df_exp["mae"].min(), df_exp["mae"].max()
-            rmse_min, rmse_max = df_exp["rmse"].min(), df_exp["rmse"].max()
-
-            # Margen visual (5%)
-            def expand_range(min_v, max_v, pct=0.05):
+            def expand_range(series, pct=0.1):
+                min_v = series.min()
+                max_v = series.max()
                 delta = (max_v - min_v) * pct
                 return [min_v - delta, max_v + delta]
 
@@ -449,7 +445,7 @@ with tab_experiments:
             )
 
             fig_r2.update_xaxes(
-                range=expand_range(r2_min, r2_max),
+                range=expand_range(df_r2_top["r2"], pct=0.1),
                 tickformat=".4f"
             )
             
@@ -473,7 +469,7 @@ with tab_experiments:
             )
 
             fig_mae.update_xaxes(
-                range=expand_range(mae_min, mae_max),
+                range=expand_range(df_mae_top["mae"], pct=0.1),
                 tickformat=".4f"
             )
 
@@ -497,12 +493,11 @@ with tab_experiments:
             )
 
             fig_rmse.update_xaxes(
-                range=expand_range(rmse_min, rmse_max),
+                range=expand_range(df_rmse_top["rmse"], pct=0.1),
                 tickformat=".4f"
             )
 
             st.plotly_chart(fig_rmse, use_container_width=True)
-
 
 # =====================================================
 # TAB 4 – MEJOR MODELO (BUSINESS VALUE)
