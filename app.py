@@ -59,6 +59,18 @@ def cargar_precios():
         df_default.to_csv(PRECIOS_CSV, index=False)
     return pd.read_csv(PRECIOS_CSV)
 
+
+st.title("🌾 Crop Yield Analytics Dashboard")
+
+st.markdown(
+    """
+    **Plataforma analítica para evaluación de modelos predictivos de rendimiento agrícola**  
+    *Exploración de datos, comparación experimental y evaluación de Business Value*
+    """
+)
+
+st.divider()
+
 # =====================================================
 # TABS PRINCIPALES
 # =====================================================
@@ -412,8 +424,14 @@ with tab_experiments:
             # ============================
             # R² (mayor es mejor)
             # ============================
+            df_r2_top = (
+                df_exp
+                .sort_values("r2", ascending=False)
+                .head(30)
+            )
+
             fig_r2 = px.bar(
-                df_exp.sort_values("r2", ascending=True),
+                df_r2_top.sort_values("r2", ascending=True),
                 x="r2",
                 y="modelo_index",
                 orientation="h",
@@ -424,8 +442,14 @@ with tab_experiments:
             # ============================
             # MAE (menor es mejor)
             # ============================
+            df_mae_top = (
+                df_exp
+                .sort_values("mae", ascending=True)
+                .head(30)
+            )
+
             fig_mae = px.bar(
-                df_exp.sort_values("mae", ascending=False),
+                df_mae_top.sort_values("mae", ascending=False),
                 x="mae",
                 y="modelo_index",
                 orientation="h",
@@ -436,8 +460,14 @@ with tab_experiments:
             # ============================
             # RMSE (menor es mejor)
             # ============================
+            df_rmse_top = (
+                df_exp
+                .sort_values("rmse", ascending=True)
+                .head(30)
+            )
+
             fig_rmse = px.bar(
-                df_exp.sort_values("rmse", ascending=False),
+                df_rmse_top.sort_values("rmse", ascending=False),
                 x="rmse",
                 y="modelo_index",
                 orientation="h",
